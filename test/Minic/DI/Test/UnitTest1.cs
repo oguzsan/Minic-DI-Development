@@ -38,6 +38,9 @@ namespace Minic.DI.Test
             injector.AddBinding<SimpleClassA>();
             injector.AddBinding<SimpleClassB>();
 
+            //  No errors
+            Assert.Equal(0,injector.ErrorCount);
+
             //  Try re-adding first binding
             injector.AddBinding<SimpleClassA>();
             Assert.Equal(1,injector.ErrorCount);
@@ -47,6 +50,27 @@ namespace Minic.DI.Test
             injector.AddBinding<SimpleClassA>();
             Assert.Equal(2,injector.ErrorCount);
             Assert.Equal(InjectionErrorType.AlreadyAddedBindingForType, injector.GetError(1).Error);
+        }
+
+        
+        [Fact]
+        public void Test_AddingTypedProvider()
+        {
+            IInjector injector = new Injector();
+
+            //  Add first binding
+            injector.AddBinding<SimpleClassA>().ToType<SimpleClassA>();
+
+            //  Validate
+            Assert.Equal(1,injector.BindingCount);
+            Assert.Equal(1,injector.ProviderCount);
+            
+            //  Add second binding
+            injector.AddBinding<SimpleClassB>().ToType<SimpleClassB>();
+
+            //  Validate
+            Assert.Equal(2,injector.BindingCount);
+            Assert.Equal(2,injector.ProviderCount);
         }
     }
 }
