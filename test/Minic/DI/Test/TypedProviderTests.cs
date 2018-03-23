@@ -11,7 +11,7 @@ namespace Minic.DI.Test
         [Fact]
         public void Test_SettingTypedProvider()
         {
-            IInjector injector = new Injector();
+            IInjectorTester injector = new Injector();
 
             //  Add first binding and set typed provider
             injector.AddBinding<SimpleClassA>().ToType<SimpleClassA>();
@@ -37,7 +37,7 @@ namespace Minic.DI.Test
         [Fact]
         public void Test_SettingTypedProviderToWrongType()
         {
-            IInjector injector = new Injector();
+            IInjectorTester injector = new Injector();
 
             //  Add first binding and set typed provider
             injector.AddBinding<SimpleClassA>().ToType<SimpleClassB>();

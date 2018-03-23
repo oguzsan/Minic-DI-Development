@@ -11,7 +11,7 @@ namespace Minic.DI.Test
         [Fact]
         public void Test_TypedInjection()
         {
-            IInjector injector = new Injector();
+            IInjectorTester injector = new Injector();
 
             //  Add first binding
             injector.AddBinding<SimpleClassA>().ToType<SimpleClassA>();
@@ -35,7 +35,7 @@ namespace Minic.DI.Test
         [Fact]
         public void Test_TypedInjectionAssignableType()
         {
-            IInjector injector = new Injector();
+            IInjectorTester injector = new Injector();
 
             //  Add first binding
             injector.AddBinding<SimpleInterfaceA>().ToType<SimpleClassA>();
@@ -59,7 +59,7 @@ namespace Minic.DI.Test
         [Fact]
         public void Test_TypedInjectionToWrongType()
         {
-            IInjector injector = new Injector();
+            IInjectorTester injector = new Injector();
 
             //  Add first binding
             injector.AddBinding<SimpleClassB>().ToType<SimpleClassB>();

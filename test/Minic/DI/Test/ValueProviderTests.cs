@@ -11,7 +11,7 @@ namespace Minic.DI.Test
         [Fact]
         public void Test_SettingValueProvider()
         {
-            IInjector injector = new Injector();
+            IInjectorTester injector = new Injector();
 
             //  Add first binding and set value provider
             injector.AddBinding<SimpleClassA>().ToValue(new SimpleClassA());
@@ -37,7 +37,7 @@ namespace Minic.DI.Test
         [Fact]
         public void Test_SettingValueProviderToWrongType()
         {
-            IInjector injector = new Injector();
+            IInjectorTester injector = new Injector();
 
             //  Add first binding and set value provider
             injector.AddBinding<SimpleClassA>().ToValue(new SimpleClassB());

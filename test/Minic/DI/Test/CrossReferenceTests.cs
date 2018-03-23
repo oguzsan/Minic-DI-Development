@@ -11,7 +11,7 @@ namespace Minic.DI.Test
         [Fact]
         public void Test_SettingValueProvider()
         {
-            IInjector injector = new Injector();
+            IInjectorTester injector = new Injector();
 
             //  Add bindings
             injector.AddBinding<CrossReferenceClassA>().ToType<CrossReferenceClassA>();

@@ -11,7 +11,7 @@ namespace Minic.DI.Test
         [Fact]
         public void Test_ValueInjection()
         {
-            IInjector injector = new Injector();
+            IInjectorTester injector = new Injector();
 
             //  Add first binding
             SimpleClassA value = new SimpleClassA();
@@ -37,7 +37,7 @@ namespace Minic.DI.Test
         [Fact]
         public void Test_ValueInjectionAssignableType()
         {
-            IInjector injector = new Injector();
+            IInjectorTester injector = new Injector();
 
             //  Add first binding
             SimpleClassA value = new SimpleClassA();
@@ -62,7 +62,7 @@ namespace Minic.DI.Test
         [Fact]
         public void Test_ValueInjectionToWrongType()
         {
-            IInjector injector = new Injector();
+            IInjectorTester injector = new Injector();
 
             //  Add first binding
             SimpleClassB value = new SimpleClassB();

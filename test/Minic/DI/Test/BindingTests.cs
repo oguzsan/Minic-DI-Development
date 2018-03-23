@@ -11,7 +11,7 @@ namespace Minic.DI.Test
         [Fact]
         public void Test_AddingBindings()
         {
-            IInjector injector = new Injector();
+            IInjectorTester injector = new Injector();
 
             //  Add first binding
             injector.AddBinding<SimpleClassA>();
@@ -38,7 +38,7 @@ namespace Minic.DI.Test
         [Fact]
         public void Test_ReAddingExistingBindings()
         {
-            IInjector injector = new Injector();
+            IInjectorTester injector = new Injector();
 
             //  Add two bindings
             injector.AddBinding<SimpleClassA>();
