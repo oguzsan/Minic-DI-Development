@@ -6,5 +6,7 @@ namespace Minic.DI.Test.Payloads
     {
         [Inject]
         public SimpleClassA value;
+
+        public ClassThatUses_SimpleClassA(){value = null;}
     }
 }
