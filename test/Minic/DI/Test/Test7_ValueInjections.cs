@@ -1,17 +1,18 @@
 using System;
 using Xunit;
 using Minic.DI;
+using Minic.DI.Error;
 using Minic.DI.Test.Payloads;
 
 
 namespace Minic.DI.Test
 {
-    public class ValueInjectionTests
+    public class Test7_ValueInjections
     {
         [Fact]
         public void Test_ValueInjection()
         {
-            IInjectorTester injector = new Injector();
+            Injector injector = new Injector();
 
             //  Add first binding
             SimpleClassA value = new SimpleClassA();
@@ -35,13 +36,13 @@ namespace Minic.DI.Test
         }
 
         [Fact]
-        public void Test_ValueInjectionAssignableType()
+        public void Test_ValueInjectionToAssignableType()
         {
-            IInjectorTester injector = new Injector();
+            Injector injector = new Injector();
 
             //  Add first binding
             SimpleClassA value = new SimpleClassA();
-            injector.AddBinding<SimpleInterfaceA>().ToValue(value);
+            injector.AddBinding<ISimpleInterfaceA>().ToValue(value);
 
             //  Create injection target
             ClassThatUses_SimpleInterfaceA target = new ClassThatUses_SimpleInterfaceA();
@@ -60,9 +61,9 @@ namespace Minic.DI.Test
         }
 
         [Fact]
-        public void Test_ValueInjectionToWrongType()
+        public void Test_Error_ValueInjectionToWrongType()
         {
-            IInjectorTester injector = new Injector();
+            Injector injector = new Injector();
 
             //  Add first binding
             SimpleClassB value = new SimpleClassB();

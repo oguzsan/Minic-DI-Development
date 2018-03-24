@@ -2,6 +2,6 @@ using System;
 
 namespace Minic.DI.Test.Payloads
 {
-    public interface ISimpleInterfaceA
+    public interface ISimpleInterfaceB
     {}
 }

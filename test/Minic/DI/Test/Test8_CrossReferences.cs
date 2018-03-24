@@ -6,12 +6,12 @@ using Minic.DI.Test.Payloads;
 
 namespace Minic.DI.Test
 {
-    public class CrossReferenceTests
+    public class Test8_CrossReferences
     {
         [Fact]
         public void Test_SettingValueProvider()
         {
-            IInjectorTester injector = new Injector();
+            Injector injector = new Injector();
 
             //  Add bindings
             injector.AddBinding<CrossReferenceClassA>().ToType<CrossReferenceClassA>();
@@ -27,9 +27,6 @@ namespace Minic.DI.Test
             //  Inject
             injector.InjectInto(target);
 
-            //  Check error
-            Assert.Equal(0, injector.ErrorCount);
-
             //  Check after injection
             Assert.NotNull(target.valueA);
             Assert.NotNull(target.valueB);
@@ -37,6 +34,9 @@ namespace Minic.DI.Test
             Assert.NotNull(target.valueB.value);
             Assert.Equal(target.valueA.value,target.valueB);
             Assert.Equal(target.valueB.value,target.valueA);
+
+            //  Check error
+            Assert.Equal(0, injector.ErrorCount);
         }
     }
 }

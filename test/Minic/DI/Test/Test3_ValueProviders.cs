@@ -1,19 +1,20 @@
 using System;
 using Xunit;
 using Minic.DI;
+using Minic.DI.Error;
 using Minic.DI.Test.Payloads;
 
 
 namespace Minic.DI.Test
 {
-    public class ValueProviderTests
+    public class Test3_ValueProviders
     {
         [Fact]
-        public void Test_SettingValueProvider()
+        public void Test_AddingValueProvider()
         {
-            IInjectorTester injector = new Injector();
+            Injector injector = new Injector();
 
-            //  Add first binding and set value provider
+            //  Add first binding and a value provider
             injector.AddBinding<SimpleClassA>().ToValue(new SimpleClassA());
 
             //  Validate
@@ -35,9 +36,35 @@ namespace Minic.DI.Test
         }
         
         [Fact]
-        public void Test_SettingValueProviderToWrongType()
+        public void Test_AddingValueProviderToAssignableType()
         {
-            IInjectorTester injector = new Injector();
+            Injector injector = new Injector();
+
+            //  Add first binding and a typed provider
+            injector.AddBinding<ISimpleInterfaceA>().ToValue(new SimpleClassA());
+
+            //  Validate
+            Assert.Equal(1,injector.BindingCount);
+            Assert.Equal(1,injector.ProviderCount);
+
+            //  Check error
+            Assert.Equal(0,injector.ErrorCount);
+            
+            //  Add second binding and set typed provider
+            injector.AddBinding<ISimpleInterfaceB>().ToValue(new SimpleClassB());
+
+            //  Validate
+            Assert.Equal(2,injector.BindingCount);
+            Assert.Equal(2,injector.ProviderCount);
+
+            //  Check error
+            Assert.Equal(0,injector.ErrorCount);
+        }
+        
+        [Fact]
+        public void Test_Error_AddingValueProviderToWrongType()
+        {
+            Injector injector = new Injector();
 
             //  Add first binding and set value provider
             injector.AddBinding<SimpleClassA>().ToValue(new SimpleClassB());
@@ -48,7 +75,7 @@ namespace Minic.DI.Test
 
             //  Check error
             Assert.Equal(1,injector.ErrorCount);
-            Assert.Equal(InjectionErrorType.ValueNotAssignableToTarget, injector.GetError(0).Error);
+            Assert.Equal(InjectionErrorType.ValueNotAssignableToBindingType, injector.GetError(0).Error);
             
             //  Add second binding and set value provider
             injector.AddBinding<SimpleClassB>().ToValue(new SimpleClassA());
@@ -59,7 +86,7 @@ namespace Minic.DI.Test
 
             //  Check error
             Assert.Equal(2,injector.ErrorCount);
-            Assert.Equal(InjectionErrorType.ValueNotAssignableToTarget, injector.GetError(1).Error);
+            Assert.Equal(InjectionErrorType.ValueNotAssignableToBindingType, injector.GetError(1).Error);
         }
     }
 }

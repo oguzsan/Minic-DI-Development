@@ -1,17 +1,18 @@
 using System;
 using Xunit;
 using Minic.DI;
+using Minic.DI.Error;
 using Minic.DI.Test.Payloads;
 
 
 namespace Minic.DI.Test
 {
-    public class UnitTest1
+    public class Test1_Bindings
     {
         [Fact]
         public void Test_AddingBindings()
         {
-            IInjectorTester injector = new Injector();
+            Injector injector = new Injector();
 
             //  Add first binding
             injector.AddBinding<SimpleClassA>();
@@ -36,13 +37,16 @@ namespace Minic.DI.Test
         }
 
         [Fact]
-        public void Test_ReAddingExistingBindings()
+        public void Test_Error_ReAddingExistingBindings()
         {
-            IInjectorTester injector = new Injector();
+            Injector injector = new Injector();
 
             //  Add two bindings
             injector.AddBinding<SimpleClassA>();
             injector.AddBinding<SimpleClassB>();
+
+            //  Validate bindings
+            Assert.Equal(2,injector.BindingCount);
 
             //  Check error
             Assert.Equal(0,injector.ErrorCount);
@@ -55,7 +59,7 @@ namespace Minic.DI.Test
             Assert.Equal(InjectionErrorType.AlreadyAddedBindingForType, injector.GetError(0).Error);
 
             //  Try re-adding second binding
-            injector.AddBinding<SimpleClassA>();
+            injector.AddBinding<SimpleClassB>();
 
             //  Check error
             Assert.Equal(2,injector.ErrorCount);
