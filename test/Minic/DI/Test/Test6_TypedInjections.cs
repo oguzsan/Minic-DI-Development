@@ -24,7 +24,8 @@ namespace Minic.DI.Test
             ClassThatUses_SimpleClassA target = new ClassThatUses_SimpleClassA();
 
             //  Check before injection
-            Assert.Null(target.value);
+            Assert.Null(target.value1);
+            Assert.Null(target.value2);
             
             //  Inject
             injector.InjectInto(target);
@@ -33,7 +34,34 @@ namespace Minic.DI.Test
             Assert.Equal(0, injector.ErrorCount);
 
             //  Check after injection
-            Assert.NotNull(target.value);
+            Assert.NotNull(target.value1);
+            Assert.NotNull(target.value2);
+        }
+
+        [Fact]
+        public void Test_TypedInjectionToNestedMembers()
+        {
+            Injector injector = new Injector();
+
+            //  Add first binding
+            injector.AddBinding<SimpleClassA>().ToType<SimpleClassA>();
+
+            //  Create injection target
+            ExtendedClassThatUses_SimpleClassA target = new ExtendedClassThatUses_SimpleClassA();
+
+            //  Check before injection
+            Assert.Null(target.value1);
+            Assert.Null(target.value2);
+            
+            //  Inject
+            injector.InjectInto(target);
+
+            //  Check error
+            Assert.Equal(0, injector.ErrorCount);
+
+            //  Check after injection
+            Assert.NotNull(target.value1);
+            Assert.NotNull(target.value2);
         }
 
         [Fact]
@@ -72,17 +100,20 @@ namespace Minic.DI.Test
             ClassThatUses_SimpleClassA target = new ClassThatUses_SimpleClassA();
 
             //  Check before injection
-            Assert.Null(target.value);
+            Assert.Null(target.value1);
+            Assert.Null(target.value2);
             
             //  Inject
             injector.InjectInto(target);
 
             //  Check error
-            Assert.Equal(1, injector.ErrorCount);
+            Assert.Equal(2, injector.ErrorCount);
             Assert.Equal(InjectionErrorType.CanNotFindBindingForType,injector.GetError(0).Error);
+            Assert.Equal(InjectionErrorType.CanNotFindBindingForType,injector.GetError(1).Error);
 
             //  Check after injection
-            Assert.Null(target.value);
+            Assert.Null(target.value1);
+            Assert.Null(target.value2);
         }
     }
 }
