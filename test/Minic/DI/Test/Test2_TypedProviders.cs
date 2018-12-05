@@ -92,11 +92,5 @@ namespace Minic.DI.Test
             Assert.Equal(InjectionErrorType.TypeNotAssignableToTarget, injector.GetError(1).Error);
         }
 
-        
-        [Fact]
-        public void Test_Error_Something()
-        {
-
-        }
     }
 }
